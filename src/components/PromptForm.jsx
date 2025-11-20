@@ -38,7 +38,7 @@ function TagInput({ label, value, setValue, placeholder }) {
           className="flex-1 rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400/50"
         />
         <button type="button" onClick={addTag} className="px-3 py-2 rounded-lg bg-purple-500 hover:bg-purple-600 text-white text-sm">
-          Add
+          Adicionar
         </button>
       </div>
       {value?.length > 0 && (
@@ -61,14 +61,14 @@ function PromptForm({ onResult }) {
   const [projectName, setProjectName] = useState('NovaSite')
   const [siteType, setSiteType] = useState('landing')
   const [tone, setTone] = useState('professional')
-  const [targetAudience, setTargetAudience] = useState('Founders, PMs, tech-savvy buyers')
-  const [brandColors, setBrandColors] = useState('Indigo, purple, gradient accents')
-  const [features, setFeatures] = useState(['Hero with Spline animation', 'Pricing tiers', 'FAQ', 'CTA'])
-  const [pages, setPages] = useState(['Home', 'Pricing', 'About', 'Contact'])
-  const [keywords, setKeywords] = useState(['AI website builder', 'prompt engineering', 'SaaS'])
-  const [constraints, setConstraints] = useState('Load under 2s on 3G, mobile-first')
+  const [targetAudience, setTargetAudience] = useState('Fundadores, PMs, compradores técnicos')
+  const [brandColors, setBrandColors] = useState('Índigo, roxo, degradês')
+  const [features, setFeatures] = useState(['Hero com animação Spline', 'Planos de preço', 'FAQ', 'CTA'])
+  const [pages, setPages] = useState(['Início', 'Preços', 'Sobre', 'Contato'])
+  const [keywords, setKeywords] = useState(['construtor de sites com IA', 'engenharia de prompt', 'SaaS'])
+  const [constraints, setConstraints] = useState('Carregar em menos de 2s no 3G, mobile-first')
   const [stack, setStack] = useState(['React', 'Tailwind', 'Next.js'])
-  const [deliverables, setDeliverables] = useState(["site map","content outline","wireframe description","component list","responsive behavior","SEO meta tags","accessibility checklist"]) 
+  const [deliverables, setDeliverables] = useState(["mapa do site","roteiro de conteúdo","descrição de wireframe","lista de componentes","comportamento responsivo","metas de SEO","checklist de acessibilidade"]) 
   const [format, setFormat] = useState('markdown')
 
   const baseUrl = useMemo(() => import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000', [])
@@ -96,11 +96,11 @@ function PromptForm({ onResult }) {
           output_format: format,
         })
       })
-      if (!res.ok) throw new Error('Failed to generate prompt')
+      if (!res.ok) throw new Error('Falha ao gerar o prompt')
       const data = await res.json()
       onResult?.(data.prompt)
     } catch (err) {
-      onResult?.(`Error: ${err.message}`)
+      onResult?.(`Erro: ${err.message}`)
     } finally {
       setLoading(false)
     }
@@ -110,63 +110,63 @@ function PromptForm({ onResult }) {
     <form onSubmit={submit} className="grid md:grid-cols-2 gap-6">
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-2">Target LLM</label>
+          <label className="block text-sm font-medium text-slate-200 mb-2">Modelo alvo</label>
           <select value={llm} onChange={(e) => setLlm(e.target.value)} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white">
             {LLM_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-2">Project name</label>
+          <label className="block text-sm font-medium text-slate-200 mb-2">Nome do projeto</label>
           <input value={projectName} onChange={e=>setProjectName(e.target.value)} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white" />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-200 mb-2">Website type</label>
+            <label className="block text-sm font-medium text-slate-200 mb-2">Tipo de site</label>
             <select value={siteType} onChange={e=>setSiteType(e.target.value)} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white">
               {SITE_TYPES.map(t=> <option key={t} value={t}>{t}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-200 mb-2">Tone</label>
+            <label className="block text-sm font-medium text-slate-200 mb-2">Tom</label>
             <select value={tone} onChange={e=>setTone(e.target.value)} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white">
               {TONES.map(t=> <option key={t} value={t}>{t}</option>)}
             </select>
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-2">Target audience</label>
+          <label className="block text-sm font-medium text-slate-200 mb-2">Público-alvo</label>
           <input value={targetAudience} onChange={e=>setTargetAudience(e.target.value)} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-2">Brand colors / theme</label>
+          <label className="block text-sm font-medium text-slate-200 mb-2">Cores / tema da marca</label>
           <input value={brandColors} onChange={e=>setBrandColors(e.target.value)} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-2">Constraints</label>
+          <label className="block text-sm font-medium text-slate-200 mb-2">Restrições</label>
           <input value={constraints} onChange={e=>setConstraints(e.target.value)} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white" />
         </div>
       </div>
 
       <div className="space-y-4">
-        <TagInput label="Features" value={features} setValue={setFeatures} placeholder="Add a feature and click Add" />
-        <TagInput label="Pages" value={pages} setValue={setPages} placeholder="Add a page and click Add" />
-        <TagInput label="SEO Keywords" value={keywords} setValue={setKeywords} placeholder="Add a keyword and click Add" />
-        <TagInput label="Preferred Stack" value={stack} setValue={setStack} placeholder="Add a tech and click Add" />
+        <TagInput label="Funcionalidades" value={features} setValue={setFeatures} placeholder="Adicione uma funcionalidade e clique em Adicionar" />
+        <TagInput label="Páginas" value={pages} setValue={setPages} placeholder="Adicione uma página e clique em Adicionar" />
+        <TagInput label="Palavras-chave de SEO" value={keywords} setValue={setKeywords} placeholder="Adicione uma palavra-chave e clique em Adicionar" />
+        <TagInput label="Stack preferida" value={stack} setValue={setStack} placeholder="Adicione uma tecnologia e clique em Adicionar" />
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-2">Deliverables</label>
+          <label className="block text-sm font-medium text-slate-200 mb-2">Entregáveis</label>
           <textarea value={deliverables.join('\n')} onChange={e=>setDeliverables(e.target.value.split('\n').filter(Boolean))} rows={4} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white" />
-          <p className="text-xs text-slate-400 mt-1">One per line</p>
+          <p className="text-xs text-slate-400 mt-1">Um por linha</p>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-2">Output format</label>
+          <label className="block text-sm font-medium text-slate-200 mb-2">Formato de saída</label>
           <select value={format} onChange={e=>setFormat(e.target.value)} className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white">
             <option value="markdown">Markdown</option>
-            <option value="plain">Plain text</option>
+            <option value="plain">Texto simples</option>
             <option value="json">JSON</option>
           </select>
         </div>
         <button disabled={loading} className="w-full mt-2 rounded-lg bg-purple-500 hover:bg-purple-600 text-white font-semibold px-4 py-2 disabled:opacity-60">
-          {loading ? 'Generating…' : 'Generate Prompt'}
+          {loading ? 'Gerando…' : 'Gerar Prompt'}
         </button>
       </div>
     </form>
