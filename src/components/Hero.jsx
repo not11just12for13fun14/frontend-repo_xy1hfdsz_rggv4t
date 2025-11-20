@@ -1,10 +1,12 @@
 import Spline from '@splinetool/react-spline'
+import { useI18n } from '../i18n'
 
 function Hero() {
+  const { t } = useI18n()
   return (
     <section className="relative min-h-[60vh] md:min-h-[70vh] overflow-hidden flex items-center justify-center">
       {/* Fundo animado com Spline */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" aria-hidden>
         <Spline scene="https://prod.spline.design/4cHQr84zOGAHOehh/scene.splinecode" style={{ width: '100%', height: '100%' }} />
       </div>
 
@@ -13,8 +15,8 @@ function Hero() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <div className="inline-flex items-center gap-2 bg-white/10 text-white rounded-full px-3 py-1 text-xs md:text-sm border border-white/20 backdrop-blur">
-          <span className="inline-block h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
-          Arquiteto de Prompts para Criação de Sites
+          <span className="inline-block h-2 w-2 rounded-full bg-purple-400 animate-pulse" aria-hidden />
+          {t('app_title')}
         </div>
         <h1 className="mt-6 text-4xl md:text-6xl font-bold tracking-tight text-white">
           Gere prompts especializados para o seu LLM
